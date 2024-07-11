@@ -13,7 +13,7 @@ score = (stars * 3) + (forks * 2) - daysSinceUpdate;
 ## Build 
 mvn clean package
 ### Run
-java -jar target/git-popularity-score-0.0.1-SNAPSHOT.jar
+java -jar target/git-popularity-score.jar
 
 ## Endpoint
 
