@@ -13,7 +13,7 @@ score = (stars * 3) + (forks * 2) - daysSinceUpdate;
 ## Build 
 mvn clean package
 ### Run
-java -jar target/git-popularity-score.jar
+java -jar target/GitPopularScore-1.0-SNAPSHOT.jar
 
 ## Endpoint
 
@@ -26,7 +26,7 @@ Fetch a list of repositories based on specific criteria.
 - **URL Params:**
     - **language**: (required) The programming language of the repositories (e.g., `java`, `python`, `javascript`).
     - **createdAfter**: (required) The creation date filter in `YYYY-MM-DD` format. Only repositories created after this date will be included.
-    - **perPage**: (optional) max number of records should be return
+    - **perPage**: (optional) max number of records should be return (default is 10)
 
 ## Example Request
 
