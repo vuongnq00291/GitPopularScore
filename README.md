@@ -3,6 +3,7 @@
 # GitHub Repository Popularity Score
 
 This is a Spring Boot application that provides an API to fetch GitHub repositories popularity score based on programming language and creation date.
+score = (stars * 3) + (forks * 2) - daysSinceUpdate;
 
 ## Tool
 
@@ -25,6 +26,7 @@ Fetch a list of repositories based on specific criteria.
 - **URL Params:**
     - **language**: (required) The programming language of the repositories (e.g., `java`, `python`, `javascript`).
     - **createdAfter**: (required) The creation date filter in `YYYY-MM-DD` format. Only repositories created after this date will be included.
+    - **perPage**: (optional) max number of records should be return
 
 ## Example Request
 
