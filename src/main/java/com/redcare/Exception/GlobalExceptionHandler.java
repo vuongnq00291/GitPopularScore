@@ -1,4 +1,4 @@
-package com.redcare.presentation;
+package com.redcare.Exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

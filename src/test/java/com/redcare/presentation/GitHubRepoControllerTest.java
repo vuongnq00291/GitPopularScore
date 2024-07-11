@@ -17,8 +17,6 @@ import java.util.List;
 
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
-import static org.mockito.ArgumentMatchers.anyInt;
-import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -80,7 +78,7 @@ public class GitHubRepoControllerTest {
         repo2.setUpdatedAt("2023-07-01T00:00:00");
         repo2.setPopularityScore(500);
 
-        when(gitHubRepoService.getScoredRepositories(anyString(), anyString(), anyInt())).thenReturn(List.of(repo1, repo2));
+        when(gitHubRepoService.getScoredRepositories("java","2023-01-01",10)).thenReturn(List.of(repo1, repo2));
 
         mockMvc.perform(get("/repositories")
                         .param("language", "java")
