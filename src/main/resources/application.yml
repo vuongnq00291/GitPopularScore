@@ -1,0 +1,5 @@
+server.port: 8080
+github:
+  api:
+    url: "https://api.github.com/search/repositories"
+    perPage: 10
