@@ -59,7 +59,7 @@ public class GitHubRepoServiceTest {
                 )
         );
 
-        when(gitHubClient.fetchRepositories(anyString(), anyString(), anyString(), anyInt())).thenReturn(mockResponse);
+        when(gitHubClient.fetchRepositories("language:java created:>2023-01-01", "stars", "desc",10)).thenReturn(mockResponse);
 
         List<GitHubRepo> repos = gitHubRepoService.getScoredRepositories(language, createdAfter, perPage);
 
