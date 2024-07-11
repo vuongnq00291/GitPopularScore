@@ -43,6 +43,7 @@
     </dependencies>
 
     <build>
+        <finalName>git-popularity-score</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>

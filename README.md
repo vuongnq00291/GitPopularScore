@@ -1,4 +1,19 @@
 
+
+# GitHub Repository Popularity Score
+
+This is a Spring Boot application that provides an API to fetch GitHub repositories popularity score based on programming language and creation date.
+
+## Tool
+
+- Java 11 or later
+- Maven 3.6.0 or later
+
+## Build 
+mvn clean package
+### Run
+java -jar target/git-popularity-score-0.0.1-SNAPSHOT.jar
+
 ## Endpoint
 
 ### Get Repositories with popular score
