@@ -52,3 +52,16 @@ GET http://localhost:8080/repositories?language=java&createdAfter=2024-07-07
         "popularityScore": 150
     }
 ]
+```
+### Error Response
+```json
+{
+  "error": "createdAfter parameter is missing"
+}
+```
+```json
+{
+   "error":"createdAfter parameter must be in YYYY-MM-DD format"
+}
+```
+
