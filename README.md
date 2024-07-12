@@ -7,8 +7,8 @@ score = (stars * 3) + (forks * 2) - daysSinceUpdate;
 
 ## Tool
 
-- Java 11 or later
-- Maven 3.6.0 or later
+- Java 21 
+- Maven 3.6
 
 ## Build 
 mvn clean package
