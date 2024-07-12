@@ -2,6 +2,7 @@ package com.redcare.presentation;
 
 import com.redcare.Exception.InvalidDateFormatException;
 import com.redcare.Utils.DateUtils;
+import com.redcare.config.MessageConfig;
 import com.redcare.service.GitHubRepoService;
 import com.redcare.domain.GitHubRepo;
 import org.springframework.web.bind.annotation.*;
@@ -16,9 +17,10 @@ import java.util.List;
 public class GitHubRepoController {
 
     private final GitHubRepoService repositoryService;
-
-    public GitHubRepoController(GitHubRepoService repositoryService) {
+    private final MessageConfig message;
+    public GitHubRepoController(GitHubRepoService repositoryService, MessageConfig message) {
         this.repositoryService = repositoryService;
+        this.message = message;
     }
 
     /**
@@ -36,7 +38,7 @@ public class GitHubRepoController {
                                             @RequestParam(name = "perPage", required = false) Integer perPage) {
 
         if (!DateUtils.isValidDateFormat(createdAfter)) {
-            throw new InvalidDateFormatException("createdAfter parameter must be in YYYY-MM-DD format");
+            throw new InvalidDateFormatException(message.getInvalidDateFormat());
         }
         return repositoryService.getScoredRepositories(language, createdAfter, perPage);
     }

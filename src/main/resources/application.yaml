@@ -1,4 +1,9 @@
 server.port: 8080
+spring:
+  profiles:
+    active: dev,messages
+---
+spring.config.activate.on-profile: dev
 github:
   api:
     url: "https://api.github.com/search/repositories"
