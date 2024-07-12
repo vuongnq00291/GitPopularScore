@@ -1,5 +1,6 @@
 package com.redcare.Exception;
 
+import com.redcare.config.MessageConfig;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MissingServletRequestParameterException;
@@ -12,11 +13,18 @@ import java.util.Map;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
+    private final MessageConfig message;
+
+    public GlobalExceptionHandler(MessageConfig message) {
+        this.message = message;
+    }
+
     @ExceptionHandler(MissingServletRequestParameterException.class)
     public ResponseEntity<Map<String, String>> handleMissingParams(MissingServletRequestParameterException ex) {
         String paramName = ex.getParameterName();
         Map<String, String> errorResponse = new HashMap<>();
-        errorResponse.put("error", paramName + " parameter is missing");
+        String errorMessage = String.format(message.getMissingParameter(), paramName);
+        errorResponse.put("error", errorMessage);
         return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
     }
 

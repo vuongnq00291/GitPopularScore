@@ -10,4 +10,5 @@ import org.springframework.context.annotation.Configuration;
 @Data
 public class MessageConfig {
     private String invalidDateFormat;
+    private String missingParameter;
 }

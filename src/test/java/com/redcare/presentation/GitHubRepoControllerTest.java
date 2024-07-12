@@ -1,5 +1,6 @@
 package com.redcare.presentation;
 
+import com.redcare.config.MessageConfig;
 import com.redcare.domain.GitHubRepo;
 import com.redcare.service.GitHubRepoService;
 import org.junit.jupiter.api.BeforeEach;
@@ -9,7 +10,9 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.Import;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
@@ -24,7 +27,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 
 @WebMvcTest(GitHubRepoController.class)
+@Import(MessageConfig.class)
 public class GitHubRepoControllerTest {
+
+    @MockBean
+    private MessageConfig messageConfig;
 
     @Autowired
     private MockMvc mockMvc;
@@ -39,6 +46,7 @@ public class GitHubRepoControllerTest {
 
     @Test
     public void testMissingLanguageParam_thenReturns400() throws Exception {
+        when(messageConfig.getMissingParameter()).thenReturn("language parameter is missing");
         mockMvc.perform(get("/repositories")
                         .param("createdAfter", "2023-01-01"))
                 .andExpect(status().isBadRequest())
@@ -47,6 +55,7 @@ public class GitHubRepoControllerTest {
 
     @Test
     public void testMissingCreatedAfterParam_thenReturns400() throws Exception {
+        when(messageConfig.getMissingParameter()).thenReturn("createdAfter parameter is missing");
         mockMvc.perform(get("/repositories")
                         .param("language", "Java"))
                 .andExpect(status().isBadRequest())
@@ -55,6 +64,7 @@ public class GitHubRepoControllerTest {
 
     @Test
     public void testInvalidDateFormat_thenReturns400() throws Exception {
+        when(messageConfig.getInvalidDateFormat()).thenReturn("createdAfter parameter must be in YYYY-MM-DD format");
         mockMvc.perform(get("/repositories")
                         .param("language", "Java")
                         .param("createdAfter", "01-01-2023"))
