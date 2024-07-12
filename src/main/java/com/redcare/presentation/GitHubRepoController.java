@@ -1,6 +1,7 @@
 package com.redcare.presentation;
 
 import com.redcare.Exception.InvalidDateFormatException;
+import com.redcare.Utils.DateUtils;
 import com.redcare.service.GitHubRepoService;
 import com.redcare.domain.GitHubRepo;
 import org.springframework.web.bind.annotation.*;
@@ -34,19 +35,11 @@ public class GitHubRepoController {
                                             @RequestParam(name = "createdAfter") String createdAfter,
                                             @RequestParam(name = "perPage", required = false) Integer perPage) {
 
-        if (!isValidDateFormat(createdAfter)) {
+        if (!DateUtils.isValidDateFormat(createdAfter)) {
             throw new InvalidDateFormatException("createdAfter parameter must be in YYYY-MM-DD format");
         }
         return repositoryService.getScoredRepositories(language, createdAfter, perPage);
     }
 
-    private boolean isValidDateFormat(String dateStr) {
-        try {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-            LocalDate.parse(dateStr, formatter);
-            return true;
-        } catch (DateTimeParseException e) {
-            return false;
-        }
-    }
+
 }
