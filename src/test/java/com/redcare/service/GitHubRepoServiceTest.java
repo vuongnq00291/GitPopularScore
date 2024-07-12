@@ -1,6 +1,7 @@
 package com.redcare.service;
 
 import com.redcare.client.GitHubClient;
+import com.redcare.config.MessageConfig;
 import com.redcare.domain.GitHubRepo;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -18,6 +19,8 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 class GitHubRepoServiceTest {
+    @Mock
+    private MessageConfig messageConfig;
 
     @Mock
     private GitHubClient gitHubClient;
@@ -65,6 +68,7 @@ class GitHubRepoServiceTest {
 
         Map<String, Object> response = new HashMap<>();
         response.put("items", null);
+        when(messageConfig.getErrorGitHubRepoServiceParsingData()).thenReturn("Error processing repository data: null");
         when(gitHubClient.fetchRepositories("language:java created:>2023-01-01", "stars", "desc",10))
                 .thenReturn(response);
         List<GitHubRepo> scoredRepositories = gitHubRepoService.getScoredRepositories(language, createdAfter, perPage);
@@ -84,6 +88,7 @@ class GitHubRepoServiceTest {
         repoData.put("updated_at", "2023-07-10T12:34:56Z");
         Map<String, Object> response = new HashMap<>();
         response.put("items", List.of(repoData));
+        when(messageConfig.getErrorGitHubRepoServiceParsingData()).thenReturn("Error processing repository data: ");
         when(gitHubClient.fetchRepositories("language:java created:>2023-01-01", "stars", "desc",10))
                 .thenReturn(response);
         List<GitHubRepo> scoredRepositories = gitHubRepoService.getScoredRepositories(language, createdAfter, perPage);
@@ -102,11 +107,11 @@ class GitHubRepoServiceTest {
 
     @Test
     void testCalculateScore_InvalidDate() {
-        // Given
         GitHubRepo repo = new GitHubRepo();
         repo.setStars(100);
         repo.setForks(50);
         repo.setUpdatedAt("invalid-date");
+        when(messageConfig.getErrorGitHubRepoServiceParsingDate()).thenReturn("Error parsing updated_at date: invalid-date");
         gitHubRepoService.calculateScore(repo);
         assertEquals(0, repo.getPopularityScore());
     }

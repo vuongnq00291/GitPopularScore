@@ -11,4 +11,7 @@ import org.springframework.context.annotation.Configuration;
 public class MessageConfig {
     private String invalidDateFormat;
     private String missingParameter;
+    private String errorServiceParsingData;
+    private String errorGitHubRepoServiceParsingData;
+    private String errorGitHubRepoServiceParsingDate;
 }

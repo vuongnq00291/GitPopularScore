@@ -1,3 +1,0 @@
-messages:
-  invalidDateFormat: "createdAfter parameter must be in YYYY-MM-DD format."
-  missingParameter: "%s parameter is missing."

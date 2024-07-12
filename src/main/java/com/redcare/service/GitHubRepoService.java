@@ -1,6 +1,7 @@
 package com.redcare.service;
 
 import com.redcare.client.GitHubClient;
+import com.redcare.config.MessageConfig;
 import com.redcare.domain.GitHubRepo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,9 +21,11 @@ public class GitHubRepoService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(GitHubClient.class);
     private final GitHubClient gitHubClient;
+    private final MessageConfig message;
 
-    public GitHubRepoService(GitHubClient gitHubClient) {
+    public GitHubRepoService(GitHubClient gitHubClient, MessageConfig message) {
         this.gitHubClient = gitHubClient;
+        this.message = message;
     }
 
     /**
@@ -52,7 +56,7 @@ public class GitHubRepoService {
                     calculateScore(repo);
                     scoredRepositories.add(repo);
                 } catch (NullPointerException | ClassCastException e) {
-                    LOGGER.error("Error processing repository data: {}", e.getMessage());
+                    LOGGER.error(message.getErrorGitHubRepoServiceParsingData(), e.getMessage());
                 }
             }
         }
@@ -67,8 +71,8 @@ public class GitHubRepoService {
             long daysSinceUpdate = ChronoUnit.DAYS.between(updatedTime, now);
             int score = (repo.getStars() * 3) + (repo.getForks() * 2) - (int) daysSinceUpdate;
             repo.setPopularityScore(Math.max(score, 0));
-        } catch (Exception e) {
-            LOGGER.error("Error parsing updated_at date: {}", e.getMessage());
+        } catch (DateTimeParseException e) {
+            LOGGER.error(message.getErrorGitHubRepoServiceParsingDate(), repo.getUpdatedAt());
             repo.setPopularityScore(0);
         }
     }
