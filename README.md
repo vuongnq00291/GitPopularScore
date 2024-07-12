@@ -26,7 +26,7 @@ Fetch a list of repositories based on specific criteria.
 - **URL Params:**
     - **language**: (required) The programming language of the repositories (e.g., `java`, `python`, `javascript`).
     - **createdAfter**: (required) The creation date filter in `YYYY-MM-DD` format. Only repositories created after this date will be included.
-    - **perPage**: (optional) max number of records should be return (default is 10)
+    - **limit**: (optional) max number of records should be return (default is 10)
 
 ## Example Request
 
