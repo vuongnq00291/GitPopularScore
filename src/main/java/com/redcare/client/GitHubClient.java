@@ -13,7 +13,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import java.net.URI;
 import java.util.HashMap;
 import java.util.Map;
-
+//TODO if I have more time, i will implement proxy service here to handle logic for all external apis. Make it more extendable.
 @Service
 public class GitHubClient {
 
