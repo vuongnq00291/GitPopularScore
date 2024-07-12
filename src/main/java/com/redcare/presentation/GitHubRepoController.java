@@ -5,15 +5,13 @@ import com.redcare.Utils.DateUtils;
 import com.redcare.config.MessageConfig;
 import com.redcare.domain.GitHubRepo;
 import com.redcare.service.GitHubRepoService;
-import org.springframework.web.bind.annotation.ControllerAdvice;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @ControllerAdvice
 @RestController
+@RequestMapping("/github")
 public class GitHubRepoController {
 
     private final GitHubRepoService repositoryService;
@@ -32,7 +30,7 @@ public class GitHubRepoController {
      * @return a list of GitHub repositories matching the specified criteria
      * @throws InvalidDateFormatException if the createdAfter parameter is not in YYYY-MM-DD format
      */
-    @GetMapping("/repositories")
+    @GetMapping("/popularity-score")
     public List<GitHubRepo> getRepositories(@RequestParam(name = "language") String language,
                                             @RequestParam(name = "createdAfter") String createdAfter,
                                             @RequestParam(name = "perPage", required = false) Integer perPage) {

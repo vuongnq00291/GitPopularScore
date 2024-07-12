@@ -21,7 +21,7 @@ java -jar target/GitPopularScore-1.0-SNAPSHOT.jar
 
 Fetch a list of repositories based on specific criteria.
 
-- **URL:** `/repositories`
+- **URL:** `/github/popularity-score`
 - **Method:** `GET`
 - **URL Params:**
     - **language**: (required) The programming language of the repositories (e.g., `java`, `python`, `javascript`).
@@ -30,7 +30,7 @@ Fetch a list of repositories based on specific criteria.
 
 ## Example Request
 
-GET http://localhost:8080/repositories?language=java&createdAfter=2024-07-07
+GET http://localhost:8080/github/popularity-score?language=java&createdAfter=2024-07-07
 
 
 ## Example Response

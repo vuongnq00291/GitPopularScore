@@ -47,7 +47,7 @@ public class GitHubRepoControllerTest {
     @Test
     public void testMissingLanguageParam_thenReturns400() throws Exception {
         when(messageConfig.getMissingParameter()).thenReturn("language parameter is missing");
-        mockMvc.perform(get("/repositories")
+        mockMvc.perform(get("/github/popularity-score")
                         .param("createdAfter", "2023-01-01"))
                 .andExpect(status().isBadRequest())
                 .andExpect(content().json("{\"error\":\"language parameter is missing\"}"));
@@ -56,7 +56,7 @@ public class GitHubRepoControllerTest {
     @Test
     public void testMissingCreatedAfterParam_thenReturns400() throws Exception {
         when(messageConfig.getMissingParameter()).thenReturn("createdAfter parameter is missing");
-        mockMvc.perform(get("/repositories")
+        mockMvc.perform(get("/github/popularity-score")
                         .param("language", "Java"))
                 .andExpect(status().isBadRequest())
                 .andExpect(content().json("{\"error\":\"createdAfter parameter is missing\"}"));
@@ -65,7 +65,7 @@ public class GitHubRepoControllerTest {
     @Test
     public void testInvalidDateFormat_thenReturns400() throws Exception {
         when(messageConfig.getInvalidDateFormat()).thenReturn("createdAfter parameter must be in YYYY-MM-DD format");
-        mockMvc.perform(get("/repositories")
+        mockMvc.perform(get("/github/popularity-score")
                         .param("language", "Java")
                         .param("createdAfter", "01-01-2023"))
                 .andExpect(status().isBadRequest())
@@ -90,7 +90,7 @@ public class GitHubRepoControllerTest {
 
         when(gitHubRepoService.getScoredRepositories("java","2023-01-01",10)).thenReturn(List.of(repo1, repo2));
 
-        mockMvc.perform(get("/repositories")
+        mockMvc.perform(get("/github/popularity-score")
                         .param("language", "java")
                         .param("createdAfter", "2023-01-01")
                         .param("perPage", "10"))
